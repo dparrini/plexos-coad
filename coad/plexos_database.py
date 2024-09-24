@@ -67,6 +67,9 @@ def load(source, dbfilename=None, create_db_file=True, remove_invalid_chars=Fals
     except TypeError:
         xml_file = source
         filename = xml_file.name
+    except PermissionError:
+        LOGGER.error("Permission denied to open %s", source)
+        raise
     start_time = time.time()
     if create_db_file:
         if dbfilename is None:

@@ -13,7 +13,7 @@ Example:
     coad_new = COAD("master_new.xml")
     print("After set, solver is %s"%coad['Performance']['Gurobi']['SOLVER'])
 """
-import collections
+import collections.abc
 import logging
 import os
 import sqlite3 as sql
@@ -26,7 +26,7 @@ from . import export_plexos_model
 
 _logger = logging.getLogger(__name__)
 
-class COAD(collections.MutableMapping):
+class COAD(collections.abc.MutableMapping):
     '''Edit models, horizons, memberships and object attributes of plexos data.
     Quickly modify the largest xml files for simulation.
 
@@ -337,7 +337,7 @@ class COAD(collections.MutableMapping):
         cur.execute("SELECT count(*) FROM class")
         return cur.fetchone()[0]
 
-class ClassDict(collections.MutableMapping):
+class ClassDict(collections.abc.MutableMapping):
     '''
         meta is a dictionary describing the class to match the
         database entry
@@ -556,7 +556,7 @@ class ClassDict(collections.MutableMapping):
     # TODO: Any need for remove category?  Would have to change objects that use
     # the deleted category to the default
 
-class ObjectDict(collections.MutableMapping):
+class ObjectDict(collections.abc.MutableMapping):
     ''' Overwrites the setitem method to allow updates to data and dict
         Works by using the list of attribute and attribute data dicts
         and manipulating the original database as needed
